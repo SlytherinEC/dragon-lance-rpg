@@ -1,0 +1,82 @@
+[
+    {
+      "nombre": "Dragón Sombrío",
+      "arma": "Aliento de fuego corrupto",
+      "ataque": null,
+      "defensa": null,
+      "vida": null,
+      "recompensa": ["Tesoro legendario", "500 monedas de oro", "Gema mística", "Escamas de dragón"]
+    },
+    {
+      "nombre": "Orco de las Montañas",
+      "arma": "Gran hacha de guerra",
+      "ataque": null,
+      "defensa": null,
+      "vida": null,
+      "recompensa": ["100 monedas de oro", "Equipo orco", "Hacha de batalla", "Amuleto de resistencia"]
+    },
+    {
+      "nombre": "Nigromante Oscuro",
+      "arma": "Bastón de almas",
+      "ataque": null,
+      "defensa": null,
+      "vida": null,
+      "recompensa": ["200 monedas de oro", "Libro de hechizos oscuros", "Varita de huesos", "Piedra de almas"]
+    },
+    {
+      "nombre": "Troll de la Ciénaga",
+      "arma": "Maza de huesos",
+      "ataque": null,
+      "defensa": null,
+      "vida": null,
+      "recompensa": ["50 monedas de oro", "Piel de troll", "Fragmento de hueso", "Elixir regenerativo"]
+    },
+    {
+      "nombre": "Guerrero Centauro",
+      "arma": "Lanza larga encantada",
+      "ataque": null,
+      "defensa": null,
+      "vida": null,
+      "recompensa": ["150 monedas de oro", "Lanza encantada", "Escudo de batalla", "Botas de velocidad"]
+    },
+    {
+      "nombre": "Serpiente Basilisco",
+      "arma": "Colmillos venenosos",
+      "ataque": null,
+      "defensa": null,
+      "vida": null,
+      "recompensa": ["80 monedas de oro", "Escamas de basilisco", "Veneno concentrado", "Anillo de toxicidad"]
+    },
+    {
+      "nombre": "Espectro del Abismo",
+      "arma": "Espada de sombras",
+      "ataque": null,
+      "defensa": null,
+      "vida": null,
+      "recompensa": ["300 monedas de oro", "Fragmento de oscuridad eterna", "Capa espectral", "Cristal sombrío"]
+    },
+    {
+      "nombre": "Harpía Alada",
+      "arma": "Garras afiladas",
+      "ataque": null,
+      "defensa": null,
+      "vida": null,
+      "recompensa": ["70 monedas de oro", "Plumas mágicas", "Collar de viento", "Daga afilada"]
+    },
+    {
+      "nombre": "Gigante de Piedra",
+      "arma": "Martillo de roca",
+      "ataque": null,
+      "defensa": null,
+      "vida": null,
+      "recompensa": ["400 monedas de oro", "Roca encantada", "Martillo pesado", "Amuleto de fuerza"]
+    },
+    {
+      "nombre": "Goblin Asesino",
+      "arma": "Dagas envenenadas",
+      "ataque": null,
+      "defensa": null,
+      "vida": null,
+      "recompensa": ["30 monedas de oro", "Veneno goblin", "Capa ligera", "Botas furtivas"]
+    }
+  ]
