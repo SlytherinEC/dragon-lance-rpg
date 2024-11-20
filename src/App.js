@@ -7,6 +7,7 @@ import datosHeroes from "./data/datosHeroes.json";
 import Heroe from './components/Heroe/Heroe';
 import { useState } from 'react';
 import logicaJuego from './utils/LogicaJuego';
+import Footer from './components/Footer/Footer';
 
 
 function App() {
@@ -17,17 +18,7 @@ function App() {
   const [estadoJuego, setEstadoJuego] = useState('inicio');
   const [arrayEnemigos, setArrayEnemigos] = useState([]); 
 
-  // const arrayEjercitoEnemigo = logicaJuego.arrayEnemigos();
-  // setArrayEnemigos(arrayEjercitoEnemigo);
-
-  // console.log(arrayEjercitoEnemigo);
-  
-
-  // const crearAleatorio = (min, max) => {
-  //   return Math.floor(Math.random() * (max - min + 1)) + min;
-  // }
-
-  
+  // Primero iniciamos el juego
 
   return (
     <div className="App">
@@ -37,8 +28,8 @@ function App() {
           src={logoDragonLance}
           alt='Imagen del logo de DragonLance'
         />
-
       </header>
+      
       <div className='contenedor-principal'>
         <div className='contenedor-personajes'>
           {datosH.map((heroe, index) => (
@@ -59,8 +50,8 @@ function App() {
           />
         </div>
       </div>
-      <footer className='footer'>
-
+      <footer className='site-footer'>
+          <Footer />
       </footer>
     </div>
   );

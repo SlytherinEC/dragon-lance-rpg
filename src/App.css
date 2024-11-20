@@ -16,9 +16,8 @@ html, body{
   text-align: center;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
-  /* flex-wrap: wrap; */
   align-items: center;
   justify-content: space-between;
   text-align: center;
@@ -26,7 +25,7 @@ html, body{
 }
 
 .header{
-  height: 10%;
+  height: 15%;
   width: 100%;
   /* background-color: aqua; */
 }
@@ -39,6 +38,7 @@ html, body{
 .contenedor-principal{
   height: 80%;
   display: flex;
+  flex: 1;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -49,10 +49,17 @@ html, body{
   flex-wrap: wrap;
 }
 
-.footer{
+.site-footer{
   width: 100%;
-  height: 10%;
+  /* height: 10%; */
   /* background-color: red; */
+
+  background-color: #1a1a1a;
+  color: #f5f5f5;
+  padding: 20px 10px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
 }
 
 
