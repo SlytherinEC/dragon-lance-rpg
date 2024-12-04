@@ -1,0 +1,114 @@
+.tarjeta-personaje {
+  display: flex;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 5px 0 5px 0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  color: #F8C77B;
+  max-height: 265px;
+  gap: 5px;
+}
+
+.heroe{
+  margin-right: 30px;
+}
+
+.enemigo{
+  margin-left: 30px;
+}
+
+.tarjeta-vida-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  /* margin-right: 15px; */
+}
+
+.barra-vida {
+  width: 100%;
+  /* margin-bottom: 8px; */
+  border-radius: 10px;
+  background-color: #E7B375;
+  border: 2px solid #842A2B;
+  box-shadow: 2px 2px 5px #26191C;
+  padding: 10px 15px;
+
+}
+
+.barra-vida h2 {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+  color: #842A2B;
+  font-size: 20px;
+  /* text-shadow: 2px 2px 4px black; Sombrado negro */
+  font-family: 'Cranach Regular', sans-serif;
+}
+
+progress {
+  width: 100%;
+  height: 10px;
+}
+
+.imagen-personaje img {
+  width: 170px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.tarjeta-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  border-radius: 10px;
+  background-color: #E7B375;
+  border: 2px solid #842A2B;
+  box-shadow: 2px 2px 5px #26191C;
+  padding: 10px;
+  overflow-y: auto;
+  scrollbar-gutter: stable both-edges; /* Mantiene estabilidad en layout */
+  direction: rtl; /* Invierte dirección para mostrar scrollbar a la izquierda */
+  
+}
+
+.tarjeta-info::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tarjeta-info::-webkit-scrollbar-track {
+  border-radius: 0 10px 10px 0;
+}
+
+.tarjeta-info::-webkit-scrollbar-thumb {
+  background: #842A2B;
+  border-radius: 10px;
+  opacity: 50;
+}
+
+.tarjeta-info::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.tarjeta-info h2 {
+  /* font-family: Cranach Regular, sans-serif; */
+  margin: 0;
+  margin-bottom: 8px;
+  font-size: 20px;
+  /* color: #333; */
+  color: #842A2B;
+  text-align: center;
+  /* text-shadow: 2px 2px 4px black; Sombrado negro */
+  font-family: 'Cranach Regular', sans-serif;
+
+
+}
+
+.tarjeta-info p {
+  margin: 4px 0;
+  font-size: smaller;
+  user-select: none;
+  color: #842A2B;
+  /* text-shadow: 2px 2px 4px black; Sombrado negro */
+
+}

@@ -1,0 +1,106 @@
+.contenedor-principal {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  background-image: url('../../img/cripta.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@font-face {
+  font-family: 'Cranach Regular';
+  src: url('../../fonts/KuenstlerGotisch.ttf') format('truetype');
+}
+
+.contenedor-boton {
+  padding: 15px;
+}
+
+.btn-inicio {
+  align-self: center;
+  justify-self: center;
+  margin-top: 30px;
+  font-family: 'Cranach Regular', sans-serif;
+  font-weight: bold;
+  background-color: #E7B375;
+  /* Color de fondo */
+  color: #151224;
+  /* Color de texto */
+  text-shadow: 2px 2px 4px #842A2B;
+  border: 2px solid #842A2B;
+  /* Color de borde */
+  border-radius: 8px;
+  /* Bordes redondeados */
+  box-shadow: 2px 2px 5px #26191C;
+  /* Sombra */
+  padding: 10px 20px;
+  /* Espaciado interno */
+  font-size: 16px;
+  /* Tamaño de texto */
+  cursor: pointer;
+  /* Cambiar cursor al pasar por encima */
+  transition: all 0.3s ease;
+  /* Transición suave para los efectos */
+}
+
+.btn-inicio:hover {
+  background-color: #D6995B;
+  /* Cambia el fondo al pasar el ratón */
+  color: black;
+  /* Cambia el color del texto */
+  text-shadow: 2px 2px 3px #842A2B;
+  box-shadow: 3px 3px 8px #26191C;
+  /* Aumenta la sombra */
+
+}
+
+.contenedor-fila {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 40vh;
+}
+
+.superior {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+}
+
+.inferior {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+}
+
+.contenedor-mensajes {
+  display: flex;
+  justify-content: end;
+  height: 100%;
+  width: 50%;
+  /* background-color: orange; */
+}
+
+.contenedor-personaje {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: end;
+  height: 100%;
+  width: 50%;
+  /* background-color: green; */
+}
+
+.heroe {
+  display: flex;
+  justify-content: end;
+}
+
+.enemigo {
+  display: flex;
+  justify-content: start;
+}

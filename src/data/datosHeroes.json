@@ -1,0 +1,74 @@
+[
+  {
+    "nombre": "Tanis",
+    "raza": "Semielfo",
+    "vida": 150,
+    "equipo": "heroes",
+    "muertes": 0,
+    "asesinados": [],
+    "recompensas": [],
+    "equipamiento": {
+      "armas": {
+        "principal": {
+          "nombre": "Arco",
+          "dano": 3
+        },
+        "secundaria": {
+          "nombre": "Espada",
+          "dano": 2
+        }
+      },
+      "armadura": "Ropa élfica",
+      "ataque": 10,
+      "defensa": 8
+    }
+  },
+  {
+    "nombre": "Flint",
+    "raza": "Enano",
+    "vida": 180,
+    "equipo": "heroes",
+    "muertes": 0,
+    "asesinados": [],
+    "recompensas": [],
+    "equipamiento": {
+      "armas": {
+        "principal": {
+          "nombre": "Hacha",
+          "dano": 2
+        },
+        "secundaria": {
+          "nombre": "Ballesta",
+          "dano": 1
+        }
+      },
+      "armadura": "Cota de malla",
+      "ataque": 12,
+      "defensa": 9
+    }
+  },
+  {
+    "nombre": "Tas",
+    "raza": "Kender",
+    "vida": 150,
+    "equipo": "heroes",
+    "muertes": 0,
+    "asesinados": [],
+    "recompensas": [],
+    "equipamiento": {
+      "armas": {
+        "principal": {
+          "nombre": "Honda",
+          "dano": 4
+        },
+        "secundaria": {
+          "nombre": "Daga",
+          "dano": 2
+        }
+      },
+      "armadura": "Armadura de cuero",
+      "ataque": 8,
+      "defensa": 7
+    }
+  }
+]
