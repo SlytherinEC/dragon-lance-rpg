@@ -1,5 +1,5 @@
 import React from 'react';
-import './Heroe.css';
+import './Personaje.css';
 import BarraVida from '../BarraVida/BarraVida';
 
 function Heroe({ heroe }) {
@@ -7,23 +7,9 @@ function Heroe({ heroe }) {
   const imagen = `${heroe.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "_")}`;
 
   return (
-    <div className="tarjeta-heroe">
-
-      <div className="tarjeta-izquierda">
-        {/* Barra de vida */}
-        <div className="barra-vida">
-          <label>Vida:</label>
-          <BarraVida
-            value={heroe.vida}
-          />
-        </div>
-        {/* Imagen del personaje */}
-        <div className="imagen-personaje">
-          <img src={require(`../../img/${imagen}.png`)} alt={heroe.nombre} />
-        </div>
-      </div>
-
-      <div className="tarjeta-derecha">
+    <div className="tarjeta-personaje heroe">
+      
+      <div className="tarjeta-info">
         <h2>{heroe.nombre}</h2>
         <p>
           <strong>Raza:</strong> {heroe.raza}
@@ -43,6 +29,20 @@ function Heroe({ heroe }) {
           <strong>Ataque:</strong> {heroe.equipamiento.ataque ?? "Desconocido"}<strong> Defensa:</strong> {heroe.equipamiento.defensa ?? "Desconocida"}
         </p>
       </div>
+      <div className="tarjeta-vida-img">
+        {/* Barra de vida */}
+        <div className="barra-vida">
+          <h2>Vida:</h2>
+          <BarraVida
+            value={heroe.vida}
+          />
+        </div>
+        {/* Imagen del personaje */}
+        <div className="imagen-personaje">
+          <img src={require(`../../img/${imagen}.png`)} alt={heroe.nombre} />
+        </div>
+      </div>
+
     </div>
   );
 }
