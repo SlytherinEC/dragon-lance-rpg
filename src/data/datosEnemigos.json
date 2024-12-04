@@ -138,5 +138,19 @@
       "Botas furtivas"
     ],
     "imagen": "Goblin"
+  },
+  {
+    "nombre": "Minotauro Guerrero",
+    "arma": "Hacha de guerra pesada",
+    "ataque": null,
+    "defensa": null,
+    "vida": null,
+    "recompensa": [
+      "300 monedas de oro",
+      "Cuerno de minotauro",
+      "Collar de fuerza",
+      "Cota de malla reforzada"
+    ],
+    "imagen": "Minotauro"
   }
 ]
