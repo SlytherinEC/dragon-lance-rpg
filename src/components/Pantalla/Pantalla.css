@@ -19,12 +19,14 @@
 
 .contenedor-boton {
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .btn-inicio {
   align-self: center;
   justify-self: center;
-  margin-top: 30px;
   font-family: 'Cranach Regular', sans-serif;
   font-weight: bold;
   background-color: #E7B375;
@@ -100,7 +102,42 @@
   justify-content: end;
 }
 
+/* Desplazamiento a la derecha */
+.heroe-animado {
+  transform: translateX(100px);
+  transition: transform 0.4s ease-out;
+}
+
 .enemigo {
   display: flex;
   justify-content: start;
+}
+
+/* Sacudida del enemigo */
+@keyframes sacudir {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+}
+
+/* Enemigo se desplaza a la izquierda */
+.enemigo-animado {
+  transform: translateX(-100px);
+  transition: transform 0.4s ease-out;
+}
+
+/* Héroe se sacude */
+/* Sacudir con 6 iteraciones */
+.heroe-sacudida,
+.enemigo-sacudida {
+  animation: sacudir 0.5s ease-out 6;
 }
