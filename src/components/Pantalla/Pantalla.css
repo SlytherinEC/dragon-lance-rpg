@@ -102,11 +102,6 @@
   justify-content: end;
 }
 
-/* Desplazamiento a la derecha */
-.heroe-animado {
-  transform: translateX(100px);
-  transition: transform 0.4s ease-out;
-}
 
 .enemigo {
   display: flex;
@@ -127,6 +122,12 @@
   75% {
     transform: translateX(-10px);
   }
+}
+
+/* Desplazamiento a la derecha */
+.heroe-animado {
+  transform: translateX(100px);
+  transition: transform 0.4s ease-out;
 }
 
 /* Enemigo se desplaza a la izquierda */

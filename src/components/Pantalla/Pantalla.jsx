@@ -15,12 +15,14 @@ function Pantalla() {
   const [equipoHeroes, setEquipoHeroes] = useState([]);
   const [equipoEnemigos, setEquipoEnemigos] = useState([]);
   const [mensaje, setMensaje] = useState("");
-  const [turnoHeroes, setTurnoHeroes] = useState(true);
   const [animacionHeroe, setAnimacionHeroe] = useState(false);
   const [animacionEnemigo, setAnimacionEnemigo] = useState(false);
   const [animacionEnemigoAtaque, setAnimacionEnemigoAtaque] = useState(false);
   const [animacionHeroeSacudida, setAnimacionHeroeSacudida] = useState(false);
-  
+  const [indiceHeroe, setIndiceHeroe] = useState(0);
+  const [indiceEnemigo, setIndiceEnemigo] = useState(0);
+
+
 
   const iniciarJuego = () => {
     setEstadoJuego('game_init');
@@ -45,52 +47,66 @@ function Pantalla() {
 
   };
 
+  const seleccionarEmparejamiento = () => {
+    // Selecciona héroe y enemigo al azar
+    setIndiceHeroe(logicaJuego.crearAleatorio(0, equipoHeroes.length - 1));
+    setIndiceEnemigo(logicaJuego.crearAleatorio(0, equipoEnemigos.length - 1));
+
+    setEstadoJuego('game_play');
+  };
+
+
   const atacarEnemigo = () => {
+
     // Iniciar animación del héroe
     setAnimacionHeroe(true);
-  
+
     // Después de la animación del héroe, iniciar la sacudida del enemigo
     setTimeout(() => {
       setAnimacionHeroe(false);
       setAnimacionEnemigo(true);
-  
+
       // Actualizar vida del enemigo
       const nuevosEnemigos = [...equipoEnemigos];
-      logicaJuego.atacarTarget(equipoHeroes[0], nuevosEnemigos[3]);
+      logicaJuego.atacarTarget(equipoHeroes[indiceHeroe], nuevosEnemigos[indiceEnemigo]);
       setEquipoEnemigos(nuevosEnemigos);
-  
+
       // Detener la sacudida del enemigo y actualizar mensaje
       setTimeout(() => {
         setAnimacionEnemigo(false);
-        setMensaje(`El enemigo ${nuevosEnemigos[3].nombre} ha recibido daño.`);
-  
+        setMensaje(`Nuevo emparejamiento: ${equipoHeroes[indiceHeroe].nombre} vs ${equipoEnemigos[indiceEnemigo].nombre} El enemigo ${nuevosEnemigos[indiceEnemigo].nombre} ha recibido daño.`);
+
         // Esperar 1 segundo antes de que el enemigo ataque
         setTimeout(() => {
           // Iniciar animación del enemigo atacando
           setAnimacionEnemigoAtaque(true);
-  
+
           // Después de la animación del enemigo, iniciar sacudida del héroe
           setTimeout(() => {
             setAnimacionEnemigoAtaque(false);
             setAnimacionHeroeSacudida(true);
-  
+
             // Actualizar vida del héroe
             const nuevosHeroes = [...equipoHeroes];
-            logicaJuego.atacarTarget(nuevosEnemigos[3], nuevosHeroes[0]);
+            logicaJuego.atacarTarget(nuevosEnemigos[indiceEnemigo], nuevosHeroes[indiceHeroe]);
             setEquipoHeroes(nuevosHeroes);
-  
-            setMensaje(`${nuevosHeroes[0].nombre} ha recibido daño del enemigo.`);
-  
+
+            setMensaje(`${nuevosHeroes[indiceHeroe].nombre} ha recibido daño del enemigo.`);
+
             // Detener la sacudida del héroe
             setTimeout(() => {
               setAnimacionHeroeSacudida(false);
-            }, 500); // Duración de la sacudida del héroe
-          }, 300); // Duración del desplazamiento del enemigo
-        }, 1000); // Espera de 1 segundo antes del ataque del enemigo
-      }, 500); // Duración de la sacudida del enemigo
-    }, 300); // Duración del desplazamiento del héroe
+              setMensaje('El turno ha finalizado. Haz clic en "Seleccionar" para continuar.');
+              setTimeout(() => {
+                setEstadoJuego('game_pause');
+              }, 500);
+            }, 500);
+          }, 500);
+        }, 1000);
+      }, 500);
+    }, 500);
   };
-    
+
   console.log(equipoEnemigos);
   console.log(equipoHeroes);
 
@@ -117,6 +133,24 @@ function Pantalla() {
         </>
       }
 
+      {estadoJuego === 'game_pause' &&
+        <>
+
+          <div className="contenedor-fila superior">
+            <div className="contenedor-mensajes">
+              <Mensajes texto={mensaje} />
+            </div>
+
+
+            <div className="contenedor-boton">
+              {estadoJuego === 'game_pause' && <button className="btn-inicio" onClick={seleccionarEmparejamiento}>Seleccionar</button>}
+            </div>
+          </div>
+
+        </>
+      }
+
+
       {estadoJuego === 'game_play' &&
 
         <>
@@ -131,14 +165,12 @@ function Pantalla() {
             </div>
           </div>
           <div className="contenedor-fila inferior">
-          <div className={`contenedor-personaje heroe ${animacionHeroe ? 'heroe-animado' : ''} ${animacionHeroeSacudida ? 'heroe-sacudida' : ''}`}>
-
-              {/* <Heroe heroe={equipoHeroes[logicaJuego.crearAleatorio(0, equipoHeroes.length - 1)]} /> */}
-              <Heroe heroe={equipoHeroes[0]} />
+            <div className={`contenedor-personaje heroe ${animacionHeroe ? 'heroe-animado' : ''} ${animacionHeroeSacudida ? 'heroe-sacudida' : ''}`}>
+              <Heroe heroe={equipoHeroes[indiceHeroe]} />
             </div>
 
             <div className={`contenedor-personaje enemigo ${animacionEnemigo ? 'enemigo-sacudida' : ''} ${animacionEnemigoAtaque ? 'enemigo-animado' : ''}`}>
-            <Enemigo enemigo={equipoEnemigos[3]} />
+              <Enemigo enemigo={equipoEnemigos[indiceEnemigo]} />
             </div>
 
           </div>
