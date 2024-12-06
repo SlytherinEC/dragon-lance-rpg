@@ -126,6 +126,8 @@ const logicaJuego = {
 
     // Variable que almacenará el valor de daño calculado en el ataque.
     let dano;
+    let mensaje;
+    let mensajeFallo;
 
     // Comprobamos si el atacante es un héroe. Para esto usamos el atributo 'equipo'.
     if (atacante.equipo === 'heroes') {
@@ -144,14 +146,14 @@ const logicaJuego = {
       dano = atacado.equipamiento.defensa - arma.dano;
 
       if (dano < 0) {
-        // Se actualizan los puntos de vida del héroe atacado, restando el valor calculado del daño.
+        // Se actualizan los puntos de vida del personaje atacado, restando el valor calculado del daño.
         atacado.vida += dano;
 
       } else {
         atacado.equipamiento.defensa -= dano + 1;
-        console.log(`El ataque se estrella contra la ${atacado.equipamiento.armadura}
-            de ${atacado.nombre} y reduce su eficacia en ${dano} puntos`);
 
+        mensajeFallo = `El ataque se estrella contra la ${atacado.equipamiento.armadura}
+            de ${atacado.nombre} y reduce su eficacia en ${dano} puntos`;
       }
 
     }
@@ -162,10 +164,14 @@ const logicaJuego = {
       dano *= -1;
     }
 
-    console.log(`${atacante.nombre} ataca a ${atacado.nombre} 
+    mensaje = `${atacante.nombre} ataca a ${atacado.nombre} 
         con ${arma.nombre} y le hace ${dano} puntos de daño. A 
-        ${atacado.nombre} le quedan ${atacado.vida} puntos de vida.`);
-        
+        ${atacado.nombre} le quedan ${atacado.vida} puntos de vida.`
+
+    return {
+      atacado: atacado,
+      mensaje: mensaje
+    }
 
   },
   verificarVida: (objeto) => {
@@ -194,6 +200,13 @@ const logicaJuego = {
       indiceEnemigo,
       mensaje: `Nuevo emparejamiento: ${heroes[indiceHeroe].nombre} vs ${enemigos[indiceEnemigo].nombre}`,
     };
+  },
+  eliminarEnemigo: (enemigos, indice) => {
+    const nuevosEnemigos = [...enemigos];
+    if (nuevosEnemigos[indice].vida <= 0) {
+      nuevosEnemigos.splice(indice, 1);
+    }
+    return nuevosEnemigos;
   }
 }
 
