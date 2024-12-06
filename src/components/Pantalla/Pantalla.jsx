@@ -1,17 +1,27 @@
 import React from "react";
+import { useState } from "react";
 import './Pantalla.css';
 import datosHeroes from '../../data/datosHeroes.json'
 import datosEnemigos from '../../data/datosEnemigos.json'
+import mensajes from "../../data/mensajes.json";
 import logicaJuego from "../../utils/LogicaJuego";
 import Heroe from '../Personaje/Heroe';
 import Enemigo from "../Personaje/Enemigo";
-import { useState } from "react";
-import mensajes from "../../data/mensajes.json";
 import Mensajes from "../Mensajes/Mensajes";
+import Boton from "../Boton/Boton";
 
 function Pantalla() {
 
-  const [estadoJuego, setEstadoJuego] = useState('game_start');
+  const ESTADO = {
+    INICIO: 'game_start',
+    INICIANDO: 'game_init',
+    JUGANDO: 'game_play',
+    PAUSADO: 'game_pause',
+    GANADO: 'game_win',
+    PERDIDO: 'game_over'
+  };
+
+  const [estadoJuego, setEstadoJuego] = useState(ESTADO.INICIO);
   const [equipoHeroes, setEquipoHeroes] = useState([]);
   const [equipoEnemigos, setEquipoEnemigos] = useState([]);
   const [mensaje, setMensaje] = useState("");
@@ -22,37 +32,41 @@ function Pantalla() {
   const [indiceHeroe, setIndiceHeroe] = useState(0);
   const [indiceEnemigo, setIndiceEnemigo] = useState(0);
 
-
-
   const iniciarJuego = () => {
-    setEstadoJuego('game_init');
+    setEstadoJuego(ESTADO.INICIANDO);
     setEquipoHeroes(logicaJuego.llenarHeroes(datosHeroes));
     setEquipoEnemigos(logicaJuego.llenarEnemigos(datosEnemigos, 4));
     setMensaje(mensajes.inicio);
   };
 
   const jugarJuego = () => {
-    setEstadoJuego('game_play');
+    setEstadoJuego(ESTADO.JUGANDO);
     setMensaje(mensajes.jugar);
   };
 
   const pausarjuego = () => {
-    setEstadoJuego('game_pause');
+    setEstadoJuego(ESTADO.PAUSADO);
+
   };
 
   const reiniciarJuego = () => {
-    setEstadoJuego('game_start');
+    setEstadoJuego(ESTADO.INICIO);
     setEquipoHeroes([]);
     setEquipoEnemigos([]);
-
+    setMensaje('');
+    setIndiceHeroe(0);
+    setIndiceEnemigo(0);
   };
 
   const seleccionarEmparejamiento = () => {
     // Selecciona héroe y enemigo al azar
-    setIndiceHeroe(logicaJuego.crearAleatorio(0, equipoHeroes.length - 1));
-    setIndiceEnemigo(logicaJuego.crearAleatorio(0, equipoEnemigos.length - 1));
+    const nuevoIndiceHeroe = logicaJuego.crearAleatorio(0, equipoHeroes.length - 1);
+    const nuevoIndiceEnemigo = logicaJuego.crearAleatorio(0, equipoEnemigos.length - 1);
 
-    setEstadoJuego('game_play');
+    setIndiceHeroe(nuevoIndiceHeroe);
+    setIndiceEnemigo(nuevoIndiceEnemigo);
+    setMensaje(`Nuevo emparejamiento: ${equipoHeroes[indiceHeroe].nombre} vs ${equipoEnemigos[indiceEnemigo].nombre}`);
+
   };
 
 
@@ -74,7 +88,7 @@ function Pantalla() {
       // Detener la sacudida del enemigo y actualizar mensaje
       setTimeout(() => {
         setAnimacionEnemigo(false);
-        setMensaje(`Nuevo emparejamiento: ${equipoHeroes[indiceHeroe].nombre} vs ${equipoEnemigos[indiceEnemigo].nombre} El enemigo ${nuevosEnemigos[indiceEnemigo].nombre} ha recibido daño.`);
+        setMensaje(` ${equipoHeroes[indiceHeroe].nombre} ataca a ${nuevosEnemigos[indiceEnemigo].nombre} le hace ${equipoHeroes[indiceHeroe].equipamiento.ataque} puntos de daño.`);
 
         // Esperar 1 segundo antes de que el enemigo ataque
         setTimeout(() => {
@@ -88,24 +102,48 @@ function Pantalla() {
 
             // Actualizar vida del héroe
             const nuevosHeroes = [...equipoHeroes];
+
             logicaJuego.atacarTarget(nuevosEnemigos[indiceEnemigo], nuevosHeroes[indiceHeroe]);
             setEquipoHeroes(nuevosHeroes);
 
-            setMensaje(`${nuevosHeroes[indiceHeroe].nombre} ha recibido daño del enemigo.`);
+            setMensaje(`${nuevosHeroes[indiceHeroe].nombre} ha recibido ${nuevosEnemigos[indiceEnemigo].ataque} puntos de daño.`);
 
             // Detener la sacudida del héroe
             setTimeout(() => {
               setAnimacionHeroeSacudida(false);
-              setMensaje('El turno ha finalizado. Haz clic en "Seleccionar" para continuar.');
-              setTimeout(() => {
-                setEstadoJuego('game_pause');
-              }, 500);
-            }, 500);
-          }, 500);
-        }, 1000);
-      }, 500);
-    }, 500);
+              eliminarEnemigo(indiceEnemigo);
+              seleccionarEmparejamiento();
+              verificarFinJuego();
+              pausarjuego();
+
+            }, 700);
+          }, 700);
+        }, 1500);
+      }, 700);
+    }, 700);
   };
+
+  const verificarFinJuego = () => {
+    if (equipoHeroes.every(heroe => heroe.vida <= 0)) {
+      setMensaje("¡Todos los héroes han sido derrotados! Fin del juego.");
+      setEstadoJuego("game_over");
+    } else if (equipoEnemigos.length === 0) {
+      setMensaje("¡Todos los enemigos han sido derrotados! ¡Victoria!");
+      setEstadoJuego("game_win");
+    }
+  };
+
+  const eliminarEnemigo = (indice) => {
+    const nuevosEnemigos = [...equipoEnemigos];
+
+    if (nuevosEnemigos[indice].vida <= 0) {
+      setMensaje(`El enemigo ${nuevosEnemigos[indice].nombre} ha sido eliminado por ${equipoHeroes[indiceHeroe].nombre}.`);
+      nuevosEnemigos.splice(indice, 1);
+    }
+
+    setEquipoEnemigos(nuevosEnemigos);
+  };
+
 
   console.log(equipoEnemigos);
   console.log(equipoHeroes);
@@ -114,7 +152,24 @@ function Pantalla() {
 
     <div className='contenedor-principal'>
 
-      {estadoJuego === 'game_start' && <button className="btn-inicio" onClick={iniciarJuego}>Iniciar Juego</button>}
+      {estadoJuego === 'game_win' &&
+        <>
+          <div className="contenedor-fila superior">
+            <div className="contenedor-mensajes">
+              <Mensajes texto={mensaje} />
+            </div>
+
+
+            <div className="contenedor-boton">
+              <Boton onClick={reiniciarJuego} texto={"Iniciar"} />
+            </div>
+          </div>
+        </>
+      }
+      {estadoJuego === 'game_start' &&
+
+        <Boton onClick={iniciarJuego} texto={"Iniciar Juego"} />
+      }
 
       {estadoJuego === 'game_init' &&
         <>
@@ -126,7 +181,7 @@ function Pantalla() {
 
 
             <div className="contenedor-boton">
-              <button className="btn-inicio" onClick={jugarJuego}>Iniciar</button>
+              <Boton onClick={jugarJuego} texto={"Iniciar"} />
             </div>
           </div>
 
@@ -143,13 +198,14 @@ function Pantalla() {
 
 
             <div className="contenedor-boton">
-              {estadoJuego === 'game_pause' && <button className="btn-inicio" onClick={seleccionarEmparejamiento}>Seleccionar</button>}
+              {estadoJuego === 'game_pause' &&
+                <Boton onClick={jugarJuego} texto={"Jugar"} />
+              }
             </div>
           </div>
 
         </>
       }
-
 
       {estadoJuego === 'game_play' &&
 
@@ -159,8 +215,8 @@ function Pantalla() {
             <div className="contenedor-mensajes">
               <Mensajes texto={mensaje} />
               <div className="contenedor-boton">
-                <button className="btn-inicio" onClick={atacarEnemigo}>Atacar</button>
-                <button className="btn-inicio" onClick={reiniciarJuego}>Reiniciar</button>
+                <Boton onClick={atacarEnemigo} texto={"Atacar"} />
+                <Boton onClick={reiniciarJuego} texto={"Reiniciar"} />
               </div>
             </div>
           </div>
