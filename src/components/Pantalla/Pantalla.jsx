@@ -59,16 +59,11 @@ function Pantalla() {
   };
 
   const seleccionarEmparejamiento = () => {
-    // Selecciona héroe y enemigo al azar
-    const nuevoIndiceHeroe = logicaJuego.crearAleatorio(0, equipoHeroes.length - 1);
-    const nuevoIndiceEnemigo = logicaJuego.crearAleatorio(0, equipoEnemigos.length - 1);
-
-    setIndiceHeroe(nuevoIndiceHeroe);
-    setIndiceEnemigo(nuevoIndiceEnemigo);
-    setMensaje(`Nuevo emparejamiento: ${equipoHeroes[indiceHeroe].nombre} vs ${equipoEnemigos[indiceEnemigo].nombre}`);
-
+    const valores = logicaJuego.seleccionarEmparejamiento(equipoHeroes, equipoEnemigos);
+    setMensaje(valores.mensaje);
+    setIndiceHeroe(valores.indiceHeroe);
+    setIndiceEnemigo(valores.indiceEnemigo);
   };
-
 
   const atacarEnemigo = () => {
 
@@ -82,13 +77,16 @@ function Pantalla() {
 
       // Actualizar vida del enemigo
       const nuevosEnemigos = [...equipoEnemigos];
-      logicaJuego.atacarTarget(equipoHeroes[indiceHeroe], nuevosEnemigos[indiceEnemigo]);
+      const arma = logicaJuego.elegirArma(equipoHeroes[indiceHeroe]);
+      console.log(arma);
+
+      const atacarEnemigo = logicaJuego.ataque(equipoHeroes[indiceHeroe], arma, nuevosEnemigos[indiceEnemigo]);
       setEquipoEnemigos(nuevosEnemigos);
+      setMensaje(atacarEnemigo.mensaje);
 
       // Detener la sacudida del enemigo y actualizar mensaje
       setTimeout(() => {
         setAnimacionEnemigo(false);
-        setMensaje(` ${equipoHeroes[indiceHeroe].nombre} ataca a ${nuevosEnemigos[indiceEnemigo].nombre} le hace ${equipoHeroes[indiceHeroe].equipamiento.ataque} puntos de daño.`);
 
         // Esperar 1 segundo antes de que el enemigo ataque
         setTimeout(() => {
@@ -102,25 +100,27 @@ function Pantalla() {
 
             // Actualizar vida del héroe
             const nuevosHeroes = [...equipoHeroes];
-
-            logicaJuego.atacarTarget(nuevosEnemigos[indiceEnemigo], nuevosHeroes[indiceHeroe]);
+            const arma = {
+              nombre: nuevosEnemigos[indiceEnemigo].arma,
+              dano: nuevosEnemigos[indiceEnemigo].ataque
+            };
+            const atacarHeroe = logicaJuego.ataque(nuevosEnemigos[indiceEnemigo], arma, nuevosHeroes[indiceHeroe]);
+            setMensaje(`${atacarHeroe.mensaje}`);
             setEquipoHeroes(nuevosHeroes);
-
-            setMensaje(`${nuevosHeroes[indiceHeroe].nombre} ha recibido ${nuevosEnemigos[indiceEnemigo].ataque} puntos de daño.`);
 
             // Detener la sacudida del héroe
             setTimeout(() => {
               setAnimacionHeroeSacudida(false);
               eliminarEnemigo(indiceEnemigo);
-              seleccionarEmparejamiento();
               verificarFinJuego();
+              seleccionarEmparejamiento();
               pausarjuego();
 
             }, 700);
           }, 700);
         }, 1500);
-      }, 700);
-    }, 700);
+      }, 1000);
+    }, 1000);
   };
 
   const verificarFinJuego = () => {
@@ -134,19 +134,14 @@ function Pantalla() {
   };
 
   const eliminarEnemigo = (indice) => {
-    const nuevosEnemigos = [...equipoEnemigos];
-
-    if (nuevosEnemigos[indice].vida <= 0) {
-      setMensaje(`El enemigo ${nuevosEnemigos[indice].nombre} ha sido eliminado por ${equipoHeroes[indiceHeroe].nombre}.`);
-      nuevosEnemigos.splice(indice, 1);
-    }
+    const nuevosEnemigos = logicaJuego.eliminarEnemigo(equipoEnemigos, indice);
 
     setEquipoEnemigos(nuevosEnemigos);
   };
 
-
   console.log(equipoEnemigos);
   console.log(equipoHeroes);
+  console.log(estadoJuego);
 
   return (
 
