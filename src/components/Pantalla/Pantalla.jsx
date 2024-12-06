@@ -113,14 +113,15 @@ function Pantalla() {
               setAnimacionHeroeSacudida(false);
               eliminarEnemigo(indiceEnemigo);
               verificarFinJuego();
-              seleccionarEmparejamiento();
-              pausarjuego();
-
-            }, 700);
-          }, 700);
-        }, 1500);
-      }, 1000);
-    }, 1000);
+              setTimeout(() => {
+                seleccionarEmparejamiento();
+                pausarjuego();
+              }, 600);
+            }, 1800);
+          }, 600);
+        }, 600);
+      }, 1800);
+    }, 600);
   };
 
   const verificarFinJuego = () => {
