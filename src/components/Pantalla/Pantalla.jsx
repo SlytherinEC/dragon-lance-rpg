@@ -59,16 +59,11 @@ function Pantalla() {
   };
 
   const seleccionarEmparejamiento = () => {
-    // Selecciona héroe y enemigo al azar
-    const nuevoIndiceHeroe = logicaJuego.crearAleatorio(0, equipoHeroes.length - 1);
-    const nuevoIndiceEnemigo = logicaJuego.crearAleatorio(0, equipoEnemigos.length - 1);
-
-    setIndiceHeroe(nuevoIndiceHeroe);
-    setIndiceEnemigo(nuevoIndiceEnemigo);
-    setMensaje(`Nuevo emparejamiento: ${equipoHeroes[indiceHeroe].nombre} vs ${equipoEnemigos[indiceEnemigo].nombre}`);
-
+    const valores = logicaJuego.seleccionarEmparejamiento(equipoHeroes, equipoEnemigos);
+    setMensaje(valores.mensaje);
+    setIndiceHeroe(valores.indiceHeroe);
+    setIndiceEnemigo(valores.indiceEnemigo);
   };
-
 
   const atacarEnemigo = () => {
 
@@ -112,8 +107,8 @@ function Pantalla() {
             setTimeout(() => {
               setAnimacionHeroeSacudida(false);
               eliminarEnemigo(indiceEnemigo);
-              seleccionarEmparejamiento();
               verificarFinJuego();
+              seleccionarEmparejamiento();
               pausarjuego();
 
             }, 700);
@@ -144,9 +139,9 @@ function Pantalla() {
     setEquipoEnemigos(nuevosEnemigos);
   };
 
-
   console.log(equipoEnemigos);
   console.log(equipoHeroes);
+  console.log(estadoJuego);  
 
   return (
 
