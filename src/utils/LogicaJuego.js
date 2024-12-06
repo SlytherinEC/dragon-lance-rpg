@@ -32,7 +32,7 @@ const logicaJuego = {
         datosEnemigos[indice].arma,
         datosEnemigos[indice].ataque = logicaJuego.crearAleatorio(7, 10), // Ataque aleatorio entre 7 y 10.
         datosEnemigos[indice].defensa = logicaJuego.crearAleatorio(3, 8), // Defensa aleatoria entre 1 y 5.
-        datosEnemigos[indice].vida = logicaJuego.crearAleatorio(50, 80), // Vida aleatoria entre 25 y 40.
+        datosEnemigos[indice].vida = logicaJuego.crearAleatorio(10, 20), // Vida aleatoria entre 25 y 40.
         datosEnemigos[indice].recompensa,
         datosEnemigos[indice].imagen
       );
@@ -165,6 +165,7 @@ const logicaJuego = {
     console.log(`${atacante.nombre} ataca a ${atacado.nombre} 
         con ${arma.nombre} y le hace ${dano} puntos de daño. A 
         ${atacado.nombre} le quedan ${atacado.vida} puntos de vida.`);
+        
 
   },
   verificarVida: (objeto) => {
@@ -185,7 +186,6 @@ const logicaJuego = {
     return enemigo.recompensa[indiceAleatorio];
 
   }
-
 
 }
 
