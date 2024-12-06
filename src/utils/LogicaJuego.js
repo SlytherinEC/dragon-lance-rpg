@@ -185,8 +185,16 @@ const logicaJuego = {
     const indiceAleatorio = logicaJuego.crearAleatorio(0, enemigo.recompensa.length - 1);
     return enemigo.recompensa[indiceAleatorio];
 
+  },
+  seleccionarEmparejamiento: (heroes, enemigos) => {
+    const indiceHeroe = logicaJuego.crearAleatorio(0, heroes.length - 1);
+    const indiceEnemigo = logicaJuego.crearAleatorio(0, enemigos.length - 1);
+    return {
+      indiceHeroe,
+      indiceEnemigo,
+      mensaje: `Nuevo emparejamiento: ${heroes[indiceHeroe].nombre} vs ${enemigos[indiceEnemigo].nombre}`,
+    };
   }
-
 }
 
 export default logicaJuego;
