@@ -28,19 +28,21 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 40vh;
 }
 
 .superior {
   display: flex;
   justify-content: center;
-  justify-self: center;
+  height: 30vh;
+
 }
 
 .inferior {
   display: flex;
   justify-content: space-evenly;
   align-items: flex-end;
+  height: 50vh;
+
 }
 
 .contenedor-mensajes {
@@ -103,5 +105,5 @@
 /* Sacudir con 6 iteraciones */
 .heroe-sacudida,
 .enemigo-sacudida {
-  animation: sacudir 0.5s ease-out 6;
+  animation: sacudir 0.6s ease-out 5;
 }
