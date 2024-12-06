@@ -24,43 +24,6 @@
   gap: 15px;
 }
 
-.btn-inicio {
-  align-self: center;
-  justify-self: center;
-  font-family: 'Cranach Regular', sans-serif;
-  font-weight: bold;
-  background-color: #E7B375;
-  /* Color de fondo */
-  color: #151224;
-  /* Color de texto */
-  text-shadow: 2px 2px 4px #842A2B;
-  border: 2px solid #842A2B;
-  /* Color de borde */
-  border-radius: 8px;
-  /* Bordes redondeados */
-  box-shadow: 2px 2px 5px #26191C;
-  /* Sombra */
-  padding: 10px 20px;
-  /* Espaciado interno */
-  font-size: 16px;
-  /* Tamaño de texto */
-  cursor: pointer;
-  /* Cambiar cursor al pasar por encima */
-  transition: all 0.3s ease;
-  /* Transición suave para los efectos */
-}
-
-.btn-inicio:hover {
-  background-color: #D6995B;
-  /* Cambia el fondo al pasar el ratón */
-  color: black;
-  /* Cambia el color del texto */
-  text-shadow: 2px 2px 3px #842A2B;
-  box-shadow: 3px 3px 8px #26191C;
-  /* Aumenta la sombra */
-
-}
-
 .contenedor-fila {
   display: flex;
   flex-direction: row;
