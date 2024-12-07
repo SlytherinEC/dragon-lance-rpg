@@ -164,9 +164,9 @@
     "arma": "Hacha de guerra pesada",
     "ataque": null,
     "defensa": null,
-    "vida-inicial": 0,
+    "vida_inicial": 0,
     "vida": 0,
-    "vida-percent": 100,
+    "vida_percent": 100,
     "recompensa": [
       "300 monedas de oro",
       "Cuerno de minotauro",
