@@ -14,8 +14,32 @@
   /* Sombra */
   padding: 10px 20px;
   /* Espaciado interno */
-  font-size: 24px;
+  font-size: 22px;
   /* Tamaño de texto */
   transition: all 0.3s ease;
   /* Transición suave para los efectos */
+  overflow-y: auto;
+  scrollbar-gutter: stable both-edges;
+  /* Mantiene estabilidad en layout */
+  direction: rtl;
+  /* Invierte dirección para mostrar scrollbar a la izquierda */
+
+}
+
+.mensajes::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mensajes::-webkit-scrollbar-track {
+  border-radius: 0 10px 10px 0;
+}
+
+.mensajes::-webkit-scrollbar-thumb {
+  background: #842A2B;
+  border-radius: 10px;
+  opacity: 50;
+}
+
+.mensajes::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
