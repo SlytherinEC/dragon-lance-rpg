@@ -9,14 +9,18 @@ const logicaJuego = {
   },
 
   crearEnemigo: (nombre, arma, ataque, defensa, vida, recompensa, imagen) => {
+
+    const vida_total = vida;
     const enemigo = {
       nombre: nombre,
       arma: arma,
       ataque: ataque,
       defensa: defensa,
       equipo: 'enemigos',
-      vida: vida,
-      recompensa: recompensa,
+      vida_inicial: vida_total,
+      vida: vida_total,
+      vida_percent: 100,
+        recompensa: recompensa,
       imagen: imagen
 
     }
@@ -42,11 +46,15 @@ const logicaJuego = {
   },
   crearHeroe: (nombre, raza, principal, secundaria, armadura, vida, ataque, defensa) => {
     // Definimos el héroe con su estructura y atributos.
+    const vida_total = vida;
+
     const heroe = {
       nombre: nombre,
       raza: raza,
-      vida: vida,
-      equipo: 'heroes',
+      vida_inicial: vida_total,
+      vida: vida_total,
+      vida_percent: 100,
+        equipo: 'heroes',
       muertes: 0,
       asesinados: [],
       recompensas: [],
@@ -126,8 +134,8 @@ const logicaJuego = {
 
     // Variable que almacenará el valor de daño calculado en el ataque.
     let dano;
-    let mensaje;
-    let mensajeFallo;
+    let mensaje = "";
+    let mensajeFallo = "";
 
     // Comprobamos si el atacante es un héroe. Para esto usamos el atributo 'equipo'.
     if (atacante.equipo === 'heroes') {
@@ -139,6 +147,7 @@ const logicaJuego = {
       // significa que la defensa del enemigo no fue suficiente para bloquear todo el daño, por lo que 
       // se reduce la vida en consecuencia.
       atacado.vida += dano;
+      atacado.vida_percent = (100 * atacado.vida) / atacado.vida_inicial;
 
     } else {
       // Si el atacante es un enemigo, se realiza la misma lógica pero aplicada a los héroes.
@@ -148,9 +157,10 @@ const logicaJuego = {
       if (dano < 0) {
         // Se actualizan los puntos de vida del personaje atacado, restando el valor calculado del daño.
         atacado.vida += dano;
+        atacado.vida_percent = (100 * atacado.vida) / atacado.vida_inicial;
 
       } else {
-        atacado.equipamiento.defensa -= dano + 1;
+        atacado.equipamiento.defensa -= dano + 3;
 
         mensajeFallo = `El ataque se estrella contra la ${atacado.equipamiento.armadura}
             de ${atacado.nombre} y reduce su eficacia en ${dano} puntos`;
@@ -166,7 +176,8 @@ const logicaJuego = {
 
     mensaje = `${atacante.nombre} ataca a ${atacado.nombre} 
         con ${arma.nombre} y le hace ${dano} puntos de daño. A 
-        ${atacado.nombre} le quedan ${atacado.vida} puntos de vida.`
+        ${atacado.nombre} le quedan ${atacado.vida} puntos de vida. 
+        ${mensajeFallo}`;
 
     return {
       atacado: atacado,

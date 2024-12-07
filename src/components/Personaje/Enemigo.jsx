@@ -12,7 +12,7 @@ function Enemigo({ enemigo }) {
         <div className="barra-vida">
           <h2>Vida:</h2>
           <BarraVida
-            value={enemigo.vida}
+            value={enemigo.vida_percent}
           />
         </div>
         {/* Imagen del personaje */}
