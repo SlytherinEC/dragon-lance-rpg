@@ -2,9 +2,9 @@
   {
     "nombre": "Tanis",
     "raza": "Semielfo",
-    "vida-inicial": 200,
+    "vida_inicial": 200,
     "vida": 200,
-    "vida-percent": 100,
+    "vida_percent": 100,
     "equipo": "heroes",
     "muertes": 0,
     "asesinados": [],
