@@ -181,12 +181,12 @@ const logicaJuego = {
     }
 
   },
-  verificarVida: (objeto) => {
+  verificarVida: (personaje) => {
 
     let estaVivo = true;
 
-    // Si la vida del objeto es menor o igual a 0, el objeto está muerto.
-    if (objeto.vida <= 0) {
+    // Si la vida del personaje es menor o igual a 0, el personaje está muerto.
+    if (personaje.vida <= 0) {
 
       estaVivo = false;
     }
