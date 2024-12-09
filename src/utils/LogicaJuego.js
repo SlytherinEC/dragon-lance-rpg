@@ -162,8 +162,7 @@ const logicaJuego = {
       } else {
         atacado.equipamiento.defensa -= dano + 3;
 
-        mensajeFallo = `El ataque se estrella contra la ${atacado.equipamiento.armadura}
-            de ${atacado.nombre} y reduce su eficacia en ${dano} puntos`;
+        mensajeFallo = `El ataque se estrella contra la ${atacado.equipamiento.armadura} de ${atacado.nombre} y reduce su eficacia en ${dano} puntos.`;
       }
 
     }
@@ -174,10 +173,7 @@ const logicaJuego = {
       dano *= -1;
     }
 
-    mensaje = `${atacante.nombre} ataca a ${atacado.nombre} 
-        con ${arma.nombre} y le hace ${dano} puntos de daño. A 
-        ${atacado.nombre} le quedan ${atacado.vida} puntos de vida. 
-        ${mensajeFallo}`;
+    mensaje = `${mensajeFallo} ${atacante.nombre} ataca a ${atacado.nombre} con ${arma.nombre} y le hace ${dano} puntos de daño. A ${atacado.nombre} le quedan ${atacado.vida} puntos de vida.`;
 
     return {
       atacado: atacado,
