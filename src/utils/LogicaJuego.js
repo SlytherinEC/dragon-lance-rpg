@@ -20,7 +20,7 @@ const logicaJuego = {
       vida_inicial: vida_total,
       vida: vida_total,
       vida_percent: 100,
-        recompensa: recompensa,
+      recompensa: recompensa,
       imagen: imagen
 
     }
@@ -54,7 +54,7 @@ const logicaJuego = {
       vida_inicial: vida_total,
       vida: vida_total,
       vida_percent: 100,
-        equipo: 'heroes',
+      equipo: 'heroes',
       muertes: 0,
       asesinados: [],
       recompensas: [],
@@ -202,6 +202,7 @@ const logicaJuego = {
   seleccionarEmparejamiento: (heroes, enemigos) => {
     const indiceHeroe = logicaJuego.crearAleatorio(0, heroes.length - 1);
     const indiceEnemigo = logicaJuego.crearAleatorio(0, enemigos.length - 1);
+
     return {
       indiceHeroe,
       indiceEnemigo,
@@ -215,24 +216,15 @@ const logicaJuego = {
     }
     return nuevosEnemigos;
   },
-  verificarFinalJuego: (heroes, enemigos) => {
+  verificarFinalJuego: (enemigos) => {
     let estanEnemigosMuertos = false;
-    let estaHeroesMuertos = false;
 
-    heroes.forEach(heroe => {
-      if (heroe.vida > 0) {
-        estaHeroesMuertos = true;
-      }
-    });
-
-      if (enemigos.length === 0) {
-        estanEnemigosMuertos = true;
-      }
-
-    return {
-      estanEnemigosMuertos,
-      estaHeroesMuertos
+    if (enemigos.length === 0) {
+      estanEnemigosMuertos = true;
     }
+
+    return estanEnemigosMuertos;
+
   }
 }
 
