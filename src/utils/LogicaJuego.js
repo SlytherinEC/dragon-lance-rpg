@@ -214,6 +214,25 @@ const logicaJuego = {
       nuevosEnemigos.splice(indice, 1);
     }
     return nuevosEnemigos;
+  },
+  verificarFinalJuego: (heroes, enemigos) => {
+    let estanEnemigosMuertos = false;
+    let estaHeroesMuertos = false;
+
+    heroes.forEach(heroe => {
+      if (heroe.vida > 0) {
+        estaHeroesMuertos = true;
+      }
+    });
+
+      if (enemigos.length === 0) {
+        estanEnemigosMuertos = true;
+      }
+
+    return {
+      estanEnemigosMuertos,
+      estaHeroesMuertos
+    }
   }
 }
 
