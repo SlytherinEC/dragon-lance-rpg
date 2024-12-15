@@ -154,6 +154,15 @@ function Pantalla() {
           } else {
 
             let nuevosEnemigos = [...equipoEnemigos];
+
+            const recompensa = logicaJuego.seleccionarRecompensa(nuevosEnemigos[indiceEnemigo]);
+            equipoHeroes[indiceHeroe].recompensas.push(recompensa);
+            equipoHeroes[indiceHeroe].asesinados.push(nuevosEnemigos[indiceEnemigo].nombre);
+            equipoHeroes[indiceHeroe].muertes++;
+            console.log(`${nuevosEnemigos[indiceEnemigo].nombre} ha soltado esta recompensa: ${recompensa}`);
+            console.log(`El héroe ${equipoHeroes[indiceHeroe].nombre} ha asesinado a ${equipoHeroes[indiceHeroe].asesinados}`);
+            console.log(`El héroe ${equipoHeroes[indiceHeroe].nombre} lleva ${equipoHeroes[indiceHeroe].muertes} muertes`);
+
             nuevosEnemigos = logicaJuego.eliminarEnemigo(equipoEnemigos, indiceEnemigo);
             setEquipoEnemigos(nuevosEnemigos);
 
