@@ -34,7 +34,7 @@ const logicaJuego = {
       const enemigo = logicaJuego.crearEnemigo(
         datosEnemigos[indice].nombre,
         datosEnemigos[indice].arma,
-        datosEnemigos[indice].ataque = logicaJuego.crearAleatorio(7, 10), // Ataque aleatorio entre 7 y 10.
+        datosEnemigos[indice].ataque = logicaJuego.crearAleatorio(15, 30), // Ataque aleatorio entre 7 y 10.
         datosEnemigos[indice].defensa = logicaJuego.crearAleatorio(3, 8), // Defensa aleatoria entre 1 y 5.
         datosEnemigos[indice].vida = logicaJuego.crearAleatorio(10, 20), // Vida aleatoria entre 25 y 40.
         datosEnemigos[indice].recompensa,
