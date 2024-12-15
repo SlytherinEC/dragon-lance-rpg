@@ -4,6 +4,8 @@ import BarraVida from '../BarraVida/BarraVida';
 
 function Enemigo({ enemigo }) {
 
+  if (!enemigo) return null; // No renderizar si el enemigo no existe
+  
   return (
     <div className="tarjeta-personaje enemigo">
       {/* Contenedor Izquierdo */}

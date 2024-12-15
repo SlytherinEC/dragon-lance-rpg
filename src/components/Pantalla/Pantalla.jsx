@@ -1,145 +1,181 @@
+// Importa React y el hook useState para gestionar el estado del componente.
 import React from "react";
 import { useState } from "react";
+
+// Importa los estilos CSS específicos para este componente.
 import './Pantalla.css';
-import datosHeroes from '../../data/datosHeroes.json'
-import datosEnemigos from '../../data/datosEnemigos.json'
+
+// Importa datos predefinidos desde archivos JSON que contienen información de héroes, enemigos y mensajes.
+import datosHeroes from '../../data/datosHeroes.json';
+import datosEnemigos from '../../data/datosEnemigos.json';
 import mensajes from "../../data/mensajes.json";
+
+// Importa lógica reutilizable que contiene funciones para manejar mecánicas del juego.
 import logicaJuego from "../../utils/LogicaJuego";
+
+// Importa componentes para renderizar héroes, enemigos, mensajes y botones.
 import Heroe from '../Personaje/Heroe';
 import Enemigo from "../Personaje/Enemigo";
 import Mensajes from "../Mensajes/Mensajes";
 import Boton from "../Boton/Boton";
 
+// Declara el componente principal de la pantalla del juego.
 function Pantalla() {
-
+  // Define los diferentes estados del juego como un objeto constante.
   const ESTADO = {
-    INICIO: 'game_start',
-    INICIANDO: 'game_init',
-    JUGANDO: 'game_play',
-    PAUSADO: 'game_pause',
-    GANADO: 'game_win',
-    PERDIDO: 'game_over'
+    INICIO: 'game_start', // Juego no iniciado.
+    INICIANDO: 'game_init', // Preparando el juego.
+    JUGANDO: 'game_play', // Juego en curso.
+    PAUSADO: 'game_pause', // Juego pausado.
+    GANADO: 'game_win', // El jugador gana.
+    PERDIDO: 'game_over' // El jugador pierde.
   };
 
-  const [estadoJuego, setEstadoJuego] = useState(ESTADO.INICIO);
-  const [equipoHeroes, setEquipoHeroes] = useState([]);
-  const [equipoEnemigos, setEquipoEnemigos] = useState([]);
-  const [mensaje, setMensaje] = useState("");
-  const [animacionHeroe, setAnimacionHeroe] = useState(false);
-  const [animacionEnemigo, setAnimacionEnemigo] = useState(false);
-  const [animacionEnemigoAtaque, setAnimacionEnemigoAtaque] = useState(false);
-  const [animacionHeroeSacudida, setAnimacionHeroeSacudida] = useState(false);
-  const [indiceHeroe, setIndiceHeroe] = useState(0);
-  const [indiceEnemigo, setIndiceEnemigo] = useState(0);
+  // Define variables de estado para gestionar el juego.
+  const [estadoJuego, setEstadoJuego] = useState(ESTADO.INICIO); // Estado actual del juego.
+  const [equipoHeroes, setEquipoHeroes] = useState([]); // Lista de héroes en el equipo.
+  const [equipoEnemigos, setEquipoEnemigos] = useState([]); // Lista de enemigos activos.
+  const [mensaje, setMensaje] = useState(""); // Mensaje a mostrar en pantalla.
+  const [animacionHeroe, setAnimacionHeroe] = useState(false); // Animación del héroe atacando.
+  const [animacionEnemigo, setAnimacionEnemigo] = useState(false); // Animación del enemigo sacudido.
+  const [animacionEnemigoAtaque, setAnimacionEnemigoAtaque] = useState(false); // Animación del enemigo atacando.
+  const [animacionHeroeSacudida, setAnimacionHeroeSacudida] = useState(false); // Animación del héroe sacudido.
+  const [indiceHeroe, setIndiceHeroe] = useState(0); // Índice del héroe activo.
+  const [indiceEnemigo, setIndiceEnemigo] = useState(0); // Índice del enemigo activo.
 
+  // Función para inicializar el juego.
   const iniciarJuego = () => {
-    setEstadoJuego(ESTADO.INICIANDO);
-    setEquipoHeroes(logicaJuego.llenarHeroes(datosHeroes));
-    setEquipoEnemigos(logicaJuego.llenarEnemigos(datosEnemigos, 4));
-    setMensaje(mensajes.inicio);
+    setEstadoJuego(ESTADO.INICIANDO); // Cambia el estado del juego a 'INICIANDO'.
+    setEquipoHeroes(logicaJuego.llenarHeroes(datosHeroes)); // Llena el equipo de héroes con datos iniciales.
+    setEquipoEnemigos(logicaJuego.llenarEnemigos(datosEnemigos, 4)); // Llena el equipo de enemigos (4 enemigos).
+    setMensaje(mensajes.inicio); // Muestra el mensaje inicial.
+
   };
 
+  // Función para iniciar la jugabilidad.
   const jugarJuego = () => {
-    setEstadoJuego(ESTADO.JUGANDO);
-    setMensaje(mensajes.jugar);
+
+    const estanEnemigosMuertos = logicaJuego.verificarFinalJuego(equipoEnemigos);
+    console.log(`Estan los enemigos muertos? ${estanEnemigosMuertos}`);
+
+    if (estanEnemigosMuertos) {
+      setMensaje("¡Todos los enemigos han sido derrotados! ¡Victoria!");
+      setEstadoJuego(ESTADO.GANADO);
+    } else {
+      const emparejamiento = logicaJuego.seleccionarEmparejamiento(equipoHeroes, equipoEnemigos); // Lógica para seleccionar el emparejamiento.
+
+      const nuevoIndiceHeroe = emparejamiento.indiceHeroe;
+      const nuevoIndiceEnemigo = emparejamiento.indiceEnemigo;
+
+      setIndiceHeroe(nuevoIndiceHeroe); // Actualiza el índice del héroe activo.
+      setIndiceEnemigo(nuevoIndiceEnemigo); // Actualiza el índice del enemigo activo.
+      setMensaje(emparejamiento.mensaje); // Actualiza el mensaje correspondiente.
+
+      console.log(`Indice héroe: ${indiceHeroe}, indice enemigo: ${indiceEnemigo}`);
+
+      setEstadoJuego(ESTADO.JUGANDO); // Cambia el estado a 'JUGANDO'.
+      // setMensaje(mensajes.jugar); // Actualiza el mensaje en pantalla.
+    }
   };
 
+  // Función para pausar el juego.
   const pausarjuego = () => {
-    setEstadoJuego(ESTADO.PAUSADO);
-
+    setEstadoJuego(ESTADO.PAUSADO); // Cambia el estado a 'PAUSADO'.
   };
 
+  // Reinicia el juego a su estado inicial.
   const reiniciarJuego = () => {
-    setEstadoJuego(ESTADO.INICIO);
-    setEquipoHeroes([]);
-    setEquipoEnemigos([]);
-    setMensaje('');
-    setIndiceHeroe(0);
-    setIndiceEnemigo(0);
-  };
-
-  const seleccionarEmparejamiento = () => {
-    const valores = logicaJuego.seleccionarEmparejamiento(equipoHeroes, equipoEnemigos);
-    setMensaje(valores.mensaje);
-    setIndiceHeroe(valores.indiceHeroe);
-    setIndiceEnemigo(valores.indiceEnemigo);
+    setEstadoJuego(ESTADO.INICIO); // Cambia el estado a 'INICIO'.
+    setEquipoHeroes([]); // Vacía el equipo de héroes.
+    setEquipoEnemigos([]); // Vacía el equipo de enemigos.
+    setMensaje(''); // Limpia los mensajes.
+    setIndiceHeroe(0); // Resetea el índice del héroe activo.
+    setIndiceEnemigo(0); // Resetea el índice del enemigo activo.
   };
 
   const atacarEnemigo = () => {
+
+    console.log("Emparejamiento actual");
 
     // Iniciar animación del héroe
     setAnimacionHeroe(true);
 
     // Después de la animación del héroe, iniciar la sacudida del enemigo
     setTimeout(() => {
-      setAnimacionHeroe(false);
-      setAnimacionEnemigo(true);
+      setAnimacionHeroe(false); // Detiene la animación del héroe.
+      setAnimacionEnemigo(true); // Inicia la sacudida del enemigo.
 
-      // Actualizar vida del enemigo
-      const nuevosEnemigos = [...equipoEnemigos];
-      const arma = logicaJuego.elegirArma(equipoHeroes[indiceHeroe]);
+      // Actualiza la vida del enemigo.
+      const nuevosEnemigos = [...equipoEnemigos]; // Crea una copia del equipo enemigo.
+      const arma = logicaJuego.elegirArma(equipoHeroes[indiceHeroe]); // Selecciona el arma del héroe.
       console.log(arma);
-
-      const atacarEnemigo = logicaJuego.ataque(equipoHeroes[indiceHeroe], arma, nuevosEnemigos[indiceEnemigo]);
-      setEquipoEnemigos(nuevosEnemigos);
-      setMensaje(atacarEnemigo.mensaje);
+      const atacarEnemigo = logicaJuego.ataque(equipoHeroes[indiceHeroe], arma, nuevosEnemigos[indiceEnemigo]); // Ejecuta el ataque.
+      setEquipoEnemigos(nuevosEnemigos); // Actualiza el estado de enemigos.
+      setMensaje(atacarEnemigo.mensaje); // Actualiza el mensaje del ataque.
 
       // Detener la sacudida del enemigo y actualizar mensaje
       setTimeout(() => {
-        setAnimacionEnemigo(false);
+
+        setAnimacionEnemigo(false); // Detiene la animación del enemigo.
+        // Verifica si el enemigo sigue vivo.
+        const estaEnemigoVivo = logicaJuego.verificarVida(equipoEnemigos[indiceEnemigo]);
 
         // Esperar 1 segundo antes de que el enemigo ataque
         setTimeout(() => {
-          // Iniciar animación del enemigo atacando
-          setAnimacionEnemigoAtaque(true);
 
-          // Después de la animación del enemigo, iniciar sacudida del héroe
-          setTimeout(() => {
-            setAnimacionEnemigoAtaque(false);
-            setAnimacionHeroeSacudida(true);
+          if (estaEnemigoVivo) {
+            // Iniciar animación del enemigo atacando
+            setAnimacionEnemigoAtaque(true);
 
-            // Actualizar vida del héroe
-            const nuevosHeroes = [...equipoHeroes];
-            const arma = {
-              nombre: nuevosEnemigos[indiceEnemigo].arma,
-              dano: nuevosEnemigos[indiceEnemigo].ataque
-            };
-            const atacarHeroe = logicaJuego.ataque(nuevosEnemigos[indiceEnemigo], arma, nuevosHeroes[indiceHeroe]);
-            setMensaje(`${atacarHeroe.mensaje}`);
-            setEquipoHeroes(nuevosHeroes);
-
-            // Detener la sacudida del héroe
+            // Después de la animación del enemigo, iniciar sacudida del héroe
             setTimeout(() => {
-              setAnimacionHeroeSacudida(false);
-              eliminarEnemigo(indiceEnemigo);
-              verificarFinJuego();
+              setAnimacionEnemigoAtaque(false); // Detiene la animación del enemigo atacando.
+              setAnimacionHeroeSacudida(true); // Inicia la animación del héroe sacudido.
+
+              // Actualizar vida del héroe
+              const nuevosHeroes = [...equipoHeroes];
+              const arma = {
+                nombre: equipoEnemigos[indiceEnemigo].arma,
+                dano: equipoEnemigos[indiceEnemigo].ataque
+              };
+              const atacarHeroe = logicaJuego.ataque(equipoEnemigos[indiceEnemigo], arma, nuevosHeroes[indiceHeroe]);
+              setMensaje(atacarHeroe.mensaje);
+              setEquipoHeroes(nuevosHeroes);
+
+              // Detener la sacudida del héroe
               setTimeout(() => {
-                seleccionarEmparejamiento();
-                pausarjuego();
-              }, 600);
-            }, 1800);
-          }, 600);
+                setAnimacionHeroeSacudida(false);
+
+                setTimeout(() => {
+                  pausarjuego();
+                }, 600);
+              }, 1800);
+            }, 600);
+          } else {
+
+            let nuevosEnemigos = [...equipoEnemigos];
+
+            const recompensa = logicaJuego.seleccionarRecompensa(nuevosEnemigos[indiceEnemigo]);
+            equipoHeroes[indiceHeroe].recompensas.push(recompensa);
+            equipoHeroes[indiceHeroe].asesinados.push(nuevosEnemigos[indiceEnemigo].nombre);
+            equipoHeroes[indiceHeroe].muertes++;
+            console.log(`${nuevosEnemigos[indiceEnemigo].nombre} ha soltado esta recompensa: ${recompensa}`);
+            console.log(`El héroe ${equipoHeroes[indiceHeroe].nombre} ha asesinado a ${equipoHeroes[indiceHeroe].asesinados}`);
+            console.log(`El héroe ${equipoHeroes[indiceHeroe].nombre} lleva ${equipoHeroes[indiceHeroe].muertes} muertes`);
+
+            nuevosEnemigos = logicaJuego.eliminarEnemigo(equipoEnemigos, indiceEnemigo);
+            setEquipoEnemigos(nuevosEnemigos);
+
+            pausarjuego();
+          }
         }, 600);
       }, 1800);
     }, 600);
   };
 
-  const verificarFinJuego = () => {
-    if (equipoHeroes.every(heroe => heroe.vida <= 0)) {
-      setMensaje("¡Todos los héroes han sido derrotados! Fin del juego.");
-      setEstadoJuego("game_over");
-    } else if (equipoEnemigos.length === 0) {
-      setMensaje("¡Todos los enemigos han sido derrotados! ¡Victoria!");
-      setEstadoJuego("game_win");
-    }
-  };
 
-  const eliminarEnemigo = (indice) => {
-    const nuevosEnemigos = logicaJuego.eliminarEnemigo(equipoEnemigos, indice);
-
-    setEquipoEnemigos(nuevosEnemigos);
-  };
-
+  console.log(`Elementos en enemigos: ${equipoEnemigos.length}`);
+  console.log(`Indice héroe: ${indiceHeroe}, indice enemigo: ${indiceEnemigo}`);
   console.log(equipoEnemigos);
   console.log(equipoHeroes);
   console.log(estadoJuego);
@@ -148,20 +184,6 @@ function Pantalla() {
 
     <div className='contenedor-principal'>
 
-      {estadoJuego === 'game_win' &&
-        <>
-          <div className="contenedor-fila superior">
-            <div className="contenedor-mensajes">
-              <Mensajes texto={mensaje} />
-            </div>
-
-
-            <div className="contenedor-boton">
-              <Boton onClick={reiniciarJuego} texto={"Iniciar"} />
-            </div>
-          </div>
-        </>
-      }
       {estadoJuego === 'game_start' &&
 
         <Boton onClick={iniciarJuego} texto={"Iniciar Juego"} />
@@ -178,25 +200,6 @@ function Pantalla() {
 
             <div className="contenedor-boton">
               <Boton onClick={jugarJuego} texto={"Iniciar"} />
-            </div>
-          </div>
-
-        </>
-      }
-
-      {estadoJuego === 'game_pause' &&
-        <>
-
-          <div className="contenedor-fila superior">
-            <div className="contenedor-mensajes">
-              <Mensajes texto={mensaje} />
-            </div>
-
-
-            <div className="contenedor-boton">
-              {estadoJuego === 'game_pause' &&
-                <Boton onClick={jugarJuego} texto={"Jugar"} />
-              }
             </div>
           </div>
 
@@ -228,6 +231,41 @@ function Pantalla() {
           </div>
         </>
       }
+
+      {estadoJuego === 'game_pause' &&
+        <>
+
+          <div className="contenedor-fila superior">
+            <div className="contenedor-mensajes">
+              <Mensajes texto={mensaje} />
+            </div>
+
+
+            <div className="contenedor-boton">
+              {estadoJuego === 'game_pause' &&
+                <Boton onClick={jugarJuego} texto={"Jugar"} />
+              }
+            </div>
+          </div>
+
+        </>
+      }
+
+      {estadoJuego === 'game_win' &&
+        <>
+          <div className="contenedor-fila superior">
+            <div className="contenedor-mensajes">
+              <Mensajes texto={mensaje} />
+            </div>
+
+
+            <div className="contenedor-boton">
+              <Boton onClick={reiniciarJuego} texto={"Iniciar"} />
+            </div>
+          </div>
+        </>
+      }
+
     </div>
   );
 }

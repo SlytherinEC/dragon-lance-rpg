@@ -20,7 +20,7 @@ const logicaJuego = {
       vida_inicial: vida_total,
       vida: vida_total,
       vida_percent: 100,
-        recompensa: recompensa,
+      recompensa: recompensa,
       imagen: imagen
 
     }
@@ -34,7 +34,7 @@ const logicaJuego = {
       const enemigo = logicaJuego.crearEnemigo(
         datosEnemigos[indice].nombre,
         datosEnemigos[indice].arma,
-        datosEnemigos[indice].ataque = logicaJuego.crearAleatorio(7, 10), // Ataque aleatorio entre 7 y 10.
+        datosEnemigos[indice].ataque = logicaJuego.crearAleatorio(15, 30), // Ataque aleatorio entre 7 y 10.
         datosEnemigos[indice].defensa = logicaJuego.crearAleatorio(3, 8), // Defensa aleatoria entre 1 y 5.
         datosEnemigos[indice].vida = logicaJuego.crearAleatorio(10, 20), // Vida aleatoria entre 25 y 40.
         datosEnemigos[indice].recompensa,
@@ -54,7 +54,7 @@ const logicaJuego = {
       vida_inicial: vida_total,
       vida: vida_total,
       vida_percent: 100,
-        equipo: 'heroes',
+      equipo: 'heroes',
       muertes: 0,
       asesinados: [],
       recompensas: [],
@@ -181,12 +181,12 @@ const logicaJuego = {
     }
 
   },
-  verificarVida: (objeto) => {
+  verificarVida: (personaje) => {
 
     let estaVivo = true;
 
-    // Si la vida del objeto es menor o igual a 0, el objeto está muerto.
-    if (objeto.vida <= 0) {
+    // Si la vida del personaje es menor o igual a 0, el personaje está muerto.
+    if (personaje.vida <= 0) {
 
       estaVivo = false;
     }
@@ -202,6 +202,7 @@ const logicaJuego = {
   seleccionarEmparejamiento: (heroes, enemigos) => {
     const indiceHeroe = logicaJuego.crearAleatorio(0, heroes.length - 1);
     const indiceEnemigo = logicaJuego.crearAleatorio(0, enemigos.length - 1);
+
     return {
       indiceHeroe,
       indiceEnemigo,
@@ -214,6 +215,16 @@ const logicaJuego = {
       nuevosEnemigos.splice(indice, 1);
     }
     return nuevosEnemigos;
+  },
+  verificarFinalJuego: (enemigos) => {
+    let estanEnemigosMuertos = false;
+
+    if (enemigos.length === 0) {
+      estanEnemigosMuertos = true;
+    }
+
+    return estanEnemigosMuertos;
+
   }
 }
 
