@@ -18,7 +18,6 @@ import Heroe from '../Personaje/Heroe';
 import Enemigo from "../Personaje/Enemigo";
 import Mensajes from "../Mensajes/Mensajes";
 import Boton from "../Boton/Boton";
-import PersonajeThumbnail from "../PersonajeThumbnail/PersonajeThumbnail";
 import Inventario from "../Inventario/Inventario";
 
 // Declara el componente principal de la pantalla del juego.
@@ -36,7 +35,8 @@ function Pantalla() {
   const OPCIONES = {
     INVENTARIO: 'inventario',
     RESUMEN: 'resumen',
-    ESTADISTICAS: 'estadisticas'
+    ESTADISTICAS: 'estadisticas',
+    HISTORIA: 'historia'
   }
 
   // Define variables de estado para gestionar el juego.
@@ -63,6 +63,8 @@ function Pantalla() {
 
   // Función para iniciar la jugabilidad.
   const jugarJuego = () => {
+
+    cerrarInventario();
 
     const estanEnemigosMuertos = logicaJuego.verificarFinalJuego(equipoEnemigos);
     console.log(`Estan los enemigos muertos? ${estanEnemigosMuertos}`);
@@ -96,8 +98,13 @@ function Pantalla() {
     setOpcionJuego(OPCIONES.INVENTARIO);
   }
 
-  const volverAlPause = () => {
+
+  const cerrarInventario = () => {
     setOpcionJuego(null);
+  }
+
+  const mostrarHistoria = () => {
+    setOpcionJuego(OPCIONES.HISTORIA);
   }
 
   // Reinicia el juego a su estado inicial.
@@ -202,8 +209,11 @@ function Pantalla() {
     <div className='contenedor-principal'>
 
       {estadoJuego === 'game_start' &&
+        <div className="contenedor-boton inicio">
+          <Boton onClick={iniciarJuego} texto={"Iniciar Juego"} />
+          <Boton onClick={mostrarHistoria} texto={"Historia"} />
+        </div>
 
-        <Boton onClick={iniciarJuego} texto={"Iniciar Juego"} />
       }
 
       {estadoJuego === 'game_init' &&
@@ -249,35 +259,38 @@ function Pantalla() {
         </>
       }
 
-      {estadoJuego === 'game_pause' &&
+      {estadoJuego === 'game_pause' && (
         <>
-
           <div className="contenedor-fila superior">
+            {/* Contenedor de mensajes */}
             <div className="contenedor-mensajes">
               <Mensajes texto={mensaje} />
             </div>
 
-
+            {/* Contenedor de botones */}
             <div className="contenedor-boton">
-              {estadoJuego === 'game_pause' &&
-                <Boton onClick={jugarJuego} texto={"Jugar"} />
-              }
-              {estadoJuego === 'game_pause' &&
-                <Boton onClick={mostrarInventario} texto={"Inventario"} />
-              }
+              {estadoJuego === 'game_pause' && (
+                <>
+                  <Boton onClick={jugarJuego} texto={"Jugar"} />
+                  <Boton onClick={mostrarInventario} texto={"Inventario"} />
+                </>
+              )}
             </div>
-
-            {opcionJuego === OPCIONES.INVENTARIO &&
-            <div>
-              <Inventario equipoHeroes={equipoHeroes} />
-              <Boton onClick={volverAlPause} texto={"Volver"} />
-            </div>
-            }
-
           </div>
 
+          {/* Inventario y botón "Volver" */}
+          {opcionJuego === OPCIONES.INVENTARIO && (
+            <div className="contenedor-fila inferior">
+              <div className="contenedor-mensajes">
+                <Inventario equipoHeroes={equipoHeroes} />
+              </div>
+              <div className="contenedor-boton">
+                <Boton onClick={cerrarInventario} texto={"Cerrar"} />
+              </div>
+            </div>
+          )}
         </>
-      }
+      )}
 
       {estadoJuego === 'game_win' &&
         <>
@@ -286,11 +299,22 @@ function Pantalla() {
               <Mensajes texto={mensaje} />
             </div>
 
-
             <div className="contenedor-boton">
               <Boton onClick={reiniciarJuego} texto={"Iniciar"} />
+              <Boton onClick={mostrarInventario} texto={"Inventario"} />
             </div>
           </div>
+          {opcionJuego === OPCIONES.INVENTARIO && (
+            <div className="contenedor-fila inferior">
+              <div className="contenedor-mensajes">
+                <Inventario equipoHeroes={equipoHeroes} />
+              </div>
+              <div className="contenedor-boton">
+                <Boton onClick={cerrarInventario} texto={"Cerrar"} />
+              </div>
+            </div>
+          )}
+
         </>
       }
 
