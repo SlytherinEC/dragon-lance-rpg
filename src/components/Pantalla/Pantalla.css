@@ -24,6 +24,13 @@
   gap: 15px;
 }
 
+.inicio {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
 .contenedor-fila {
   display: flex;
   flex-direction: row;
@@ -39,8 +46,7 @@
 
 .inferior {
   display: flex;
-  justify-content: space-evenly;
-  align-items: flex-end;
+  justify-content: center;
   height: 50vh;
 
 }

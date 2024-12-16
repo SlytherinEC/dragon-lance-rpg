@@ -18,6 +18,7 @@ import Heroe from '../Personaje/Heroe';
 import Enemigo from "../Personaje/Enemigo";
 import Mensajes from "../Mensajes/Mensajes";
 import Boton from "../Boton/Boton";
+import Inventario from "../Inventario/Inventario";
 
 // Declara el componente principal de la pantalla del juego.
 function Pantalla() {
@@ -31,6 +32,13 @@ function Pantalla() {
     PERDIDO: 'game_over' // El jugador pierde.
   };
 
+  const OPCIONES = {
+    INVENTARIO: 'inventario',
+    RESUMEN: 'resumen',
+    ESTADISTICAS: 'estadisticas',
+    HISTORIA: 'historia'
+  }
+
   // Define variables de estado para gestionar el juego.
   const [estadoJuego, setEstadoJuego] = useState(ESTADO.INICIO); // Estado actual del juego.
   const [equipoHeroes, setEquipoHeroes] = useState([]); // Lista de héroes en el equipo.
@@ -42,6 +50,7 @@ function Pantalla() {
   const [animacionHeroeSacudida, setAnimacionHeroeSacudida] = useState(false); // Animación del héroe sacudido.
   const [indiceHeroe, setIndiceHeroe] = useState(0); // Índice del héroe activo.
   const [indiceEnemigo, setIndiceEnemigo] = useState(0); // Índice del enemigo activo.
+  const [opcionJuego, setOpcionJuego] = useState(null); // Opción actual del juego.
 
   // Función para inicializar el juego.
   const iniciarJuego = () => {
@@ -54,6 +63,8 @@ function Pantalla() {
 
   // Función para iniciar la jugabilidad.
   const jugarJuego = () => {
+
+    cerrarInventario();
 
     const estanEnemigosMuertos = logicaJuego.verificarFinalJuego(equipoEnemigos);
     console.log(`Estan los enemigos muertos? ${estanEnemigosMuertos}`);
@@ -82,6 +93,19 @@ function Pantalla() {
   const pausarjuego = () => {
     setEstadoJuego(ESTADO.PAUSADO); // Cambia el estado a 'PAUSADO'.
   };
+
+  const mostrarInventario = () => {
+    setOpcionJuego(OPCIONES.INVENTARIO);
+  }
+
+
+  const cerrarInventario = () => {
+    setOpcionJuego(null);
+  }
+
+  const mostrarHistoria = () => {
+    setOpcionJuego(OPCIONES.HISTORIA);
+  }
 
   // Reinicia el juego a su estado inicial.
   const reiniciarJuego = () => {
@@ -185,8 +209,11 @@ function Pantalla() {
     <div className='contenedor-principal'>
 
       {estadoJuego === 'game_start' &&
+        <div className="contenedor-boton inicio">
+          <Boton onClick={iniciarJuego} texto={"Iniciar Juego"} />
+          <Boton onClick={mostrarHistoria} texto={"Historia"} />
+        </div>
 
-        <Boton onClick={iniciarJuego} texto={"Iniciar Juego"} />
       }
 
       {estadoJuego === 'game_init' &&
@@ -232,24 +259,38 @@ function Pantalla() {
         </>
       }
 
-      {estadoJuego === 'game_pause' &&
+      {estadoJuego === 'game_pause' && (
         <>
-
           <div className="contenedor-fila superior">
+            {/* Contenedor de mensajes */}
             <div className="contenedor-mensajes">
               <Mensajes texto={mensaje} />
             </div>
 
-
+            {/* Contenedor de botones */}
             <div className="contenedor-boton">
-              {estadoJuego === 'game_pause' &&
-                <Boton onClick={jugarJuego} texto={"Jugar"} />
-              }
+              {estadoJuego === 'game_pause' && (
+                <>
+                  <Boton onClick={jugarJuego} texto={"Jugar"} />
+                  <Boton onClick={mostrarInventario} texto={"Inventario"} />
+                </>
+              )}
             </div>
           </div>
 
+          {/* Inventario y botón "Volver" */}
+          {opcionJuego === OPCIONES.INVENTARIO && (
+            <div className="contenedor-fila inferior">
+              <div className="contenedor-mensajes">
+                <Inventario equipoHeroes={equipoHeroes} />
+              </div>
+              <div className="contenedor-boton">
+                <Boton onClick={cerrarInventario} texto={"Cerrar"} />
+              </div>
+            </div>
+          )}
         </>
-      }
+      )}
 
       {estadoJuego === 'game_win' &&
         <>
@@ -258,13 +299,25 @@ function Pantalla() {
               <Mensajes texto={mensaje} />
             </div>
 
-
             <div className="contenedor-boton">
               <Boton onClick={reiniciarJuego} texto={"Iniciar"} />
+              <Boton onClick={mostrarInventario} texto={"Inventario"} />
             </div>
           </div>
+          {opcionJuego === OPCIONES.INVENTARIO && (
+            <div className="contenedor-fila inferior">
+              <div className="contenedor-mensajes">
+                <Inventario equipoHeroes={equipoHeroes} />
+              </div>
+              <div className="contenedor-boton">
+                <Boton onClick={cerrarInventario} texto={"Cerrar"} />
+              </div>
+            </div>
+          )}
+
         </>
       }
+
 
     </div>
   );

@@ -1,5 +1,6 @@
 [
   {
+    "id": 0,
     "nombre": "Tanis",
     "raza": "Semielfo",
     "vida_inicial": 200,
@@ -26,6 +27,7 @@
     }
   },
   {
+    "id": 1,
     "nombre": "Flint",
     "raza": "Enano",
     "vida-inicial": 180,
@@ -52,6 +54,7 @@
     }
   },
   {
+    "id": 2,
     "nombre": "Tas",
     "raza": "Kender",
     "vida-inicial": 150,

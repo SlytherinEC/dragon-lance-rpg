@@ -2,7 +2,7 @@
   border-radius: 10px;
   margin: 15px;
   width: 100%;
-  height: 60%;
+  height: 65%;
   font-family: 'Cranach Regular', sans-serif;
   background-color: #E7B375;
   /* Color de fondo */
@@ -21,8 +21,6 @@
   overflow-y: auto;
   scrollbar-gutter: stable both-edges;
   /* Mantiene estabilidad en layout */
-  direction: rtl;
-  /* Invierte dirección para mostrar scrollbar a la izquierda */
 
 }
 
