@@ -1,8 +1,11 @@
 [
   {
+    "id": 0,
     "nombre": "Tanis",
     "raza": "Semielfo",
-    "vida": 100,
+    "vida_inicial": 200,
+    "vida": 200,
+    "vida_percent": 100,
     "equipo": "heroes",
     "muertes": 0,
     "asesinados": [],
@@ -24,9 +27,12 @@
     }
   },
   {
+    "id": 1,
     "nombre": "Flint",
     "raza": "Enano",
+    "vida-inicial": 180,
     "vida": 180,
+    "vida-percent": 100,
     "equipo": "heroes",
     "muertes": 0,
     "asesinados": [],
@@ -48,9 +54,12 @@
     }
   },
   {
+    "id": 2,
     "nombre": "Tas",
     "raza": "Kender",
+    "vida-inicial": 150,
     "vida": 150,
+    "vida-percent": 100,
     "equipo": "heroes",
     "muertes": 0,
     "asesinados": [],

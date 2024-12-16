@@ -4,6 +4,8 @@ import BarraVida from '../BarraVida/BarraVida';
 
 function Enemigo({ enemigo }) {
 
+  if (!enemigo) return null; // No renderizar si el enemigo no existe
+  
   return (
     <div className="tarjeta-personaje enemigo">
       {/* Contenedor Izquierdo */}
@@ -12,7 +14,7 @@ function Enemigo({ enemigo }) {
         <div className="barra-vida">
           <h2>Vida:</h2>
           <BarraVida
-            value={enemigo.vida}
+            value={enemigo.vida_percent}
           />
         </div>
         {/* Imagen del personaje */}

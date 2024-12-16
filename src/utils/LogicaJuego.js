@@ -9,13 +9,17 @@ const logicaJuego = {
   },
 
   crearEnemigo: (nombre, arma, ataque, defensa, vida, recompensa, imagen) => {
+
+    const vida_total = vida;
     const enemigo = {
       nombre: nombre,
       arma: arma,
       ataque: ataque,
       defensa: defensa,
       equipo: 'enemigos',
-      vida: vida,
+      vida_inicial: vida_total,
+      vida: vida_total,
+      vida_percent: 100,
       recompensa: recompensa,
       imagen: imagen
 
@@ -30,7 +34,7 @@ const logicaJuego = {
       const enemigo = logicaJuego.crearEnemigo(
         datosEnemigos[indice].nombre,
         datosEnemigos[indice].arma,
-        datosEnemigos[indice].ataque = logicaJuego.crearAleatorio(7, 10), // Ataque aleatorio entre 7 y 10.
+        datosEnemigos[indice].ataque = logicaJuego.crearAleatorio(15, 30), // Ataque aleatorio entre 7 y 10.
         datosEnemigos[indice].defensa = logicaJuego.crearAleatorio(3, 8), // Defensa aleatoria entre 1 y 5.
         datosEnemigos[indice].vida = logicaJuego.crearAleatorio(10, 20), // Vida aleatoria entre 25 y 40.
         datosEnemigos[indice].recompensa,
@@ -42,10 +46,14 @@ const logicaJuego = {
   },
   crearHeroe: (nombre, raza, principal, secundaria, armadura, vida, ataque, defensa) => {
     // Definimos el héroe con su estructura y atributos.
+    const vida_total = vida;
+
     const heroe = {
       nombre: nombre,
       raza: raza,
-      vida: vida,
+      vida_inicial: vida_total,
+      vida: vida_total,
+      vida_percent: 100,
       equipo: 'heroes',
       muertes: 0,
       asesinados: [],
@@ -126,6 +134,8 @@ const logicaJuego = {
 
     // Variable que almacenará el valor de daño calculado en el ataque.
     let dano;
+    let mensaje = "";
+    let mensajeFallo = "";
 
     // Comprobamos si el atacante es un héroe. Para esto usamos el atributo 'equipo'.
     if (atacante.equipo === 'heroes') {
@@ -137,6 +147,7 @@ const logicaJuego = {
       // significa que la defensa del enemigo no fue suficiente para bloquear todo el daño, por lo que 
       // se reduce la vida en consecuencia.
       atacado.vida += dano;
+      atacado.vida_percent = (100 * atacado.vida) / atacado.vida_inicial;
 
     } else {
       // Si el atacante es un enemigo, se realiza la misma lógica pero aplicada a los héroes.
@@ -144,14 +155,14 @@ const logicaJuego = {
       dano = atacado.equipamiento.defensa - arma.dano;
 
       if (dano < 0) {
-        // Se actualizan los puntos de vida del héroe atacado, restando el valor calculado del daño.
+        // Se actualizan los puntos de vida del personaje atacado, restando el valor calculado del daño.
         atacado.vida += dano;
+        atacado.vida_percent = (100 * atacado.vida) / atacado.vida_inicial;
 
       } else {
-        atacado.equipamiento.defensa -= dano + 1;
-        console.log(`El ataque se estrella contra la ${atacado.equipamiento.armadura}
-            de ${atacado.nombre} y reduce su eficacia en ${dano} puntos`);
+        atacado.equipamiento.defensa -= dano + 3;
 
+        mensajeFallo = `El ataque se estrella contra la ${atacado.equipamiento.armadura} de ${atacado.nombre} y reduce su eficacia en ${dano} puntos.`;
       }
 
     }
@@ -162,18 +173,20 @@ const logicaJuego = {
       dano *= -1;
     }
 
-    console.log(`${atacante.nombre} ataca a ${atacado.nombre} 
-        con ${arma.nombre} y le hace ${dano} puntos de daño. A 
-        ${atacado.nombre} le quedan ${atacado.vida} puntos de vida.`);
-        
+    mensaje = `${mensajeFallo} ${atacante.nombre} ataca a ${atacado.nombre} con ${arma.nombre} y le hace ${dano} puntos de daño. A ${atacado.nombre} le quedan ${atacado.vida} puntos de vida.`;
+
+    return {
+      atacado: atacado,
+      mensaje: mensaje
+    }
 
   },
-  verificarVida: (objeto) => {
+  verificarVida: (personaje) => {
 
     let estaVivo = true;
 
-    // Si la vida del objeto es menor o igual a 0, el objeto está muerto.
-    if (objeto.vida <= 0) {
+    // Si la vida del personaje es menor o igual a 0, el personaje está muerto.
+    if (personaje.vida <= 0) {
 
       estaVivo = false;
     }
@@ -185,8 +198,34 @@ const logicaJuego = {
     const indiceAleatorio = logicaJuego.crearAleatorio(0, enemigo.recompensa.length - 1);
     return enemigo.recompensa[indiceAleatorio];
 
-  }
+  },
+  seleccionarEmparejamiento: (heroes, enemigos) => {
+    const indiceHeroe = logicaJuego.crearAleatorio(0, heroes.length - 1);
+    const indiceEnemigo = logicaJuego.crearAleatorio(0, enemigos.length - 1);
 
+    return {
+      indiceHeroe,
+      indiceEnemigo,
+      mensaje: `Nuevo emparejamiento: ${heroes[indiceHeroe].nombre} vs ${enemigos[indiceEnemigo].nombre}`,
+    };
+  },
+  eliminarEnemigo: (enemigos, indice) => {
+    const nuevosEnemigos = [...enemigos];
+    if (nuevosEnemigos[indice].vida <= 0) {
+      nuevosEnemigos.splice(indice, 1);
+    }
+    return nuevosEnemigos;
+  },
+  verificarFinalJuego: (enemigos) => {
+    let estanEnemigosMuertos = false;
+
+    if (enemigos.length === 0) {
+      estanEnemigosMuertos = true;
+    }
+
+    return estanEnemigosMuertos;
+
+  }
 }
 
 export default logicaJuego;

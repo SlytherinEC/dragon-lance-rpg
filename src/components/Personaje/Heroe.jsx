@@ -34,7 +34,7 @@ function Heroe({ heroe }) {
         <div className="barra-vida">
           <h2>Vida:</h2>
           <BarraVida
-            value={heroe.vida}
+            value={heroe.vida_percent}
           />
         </div>
         {/* Imagen del personaje */}
