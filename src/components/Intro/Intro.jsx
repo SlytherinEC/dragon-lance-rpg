@@ -1,9 +1,10 @@
 import React from 'react'
+import './Intro.css'
 
 function Intro() {
   return (
-    <div>
-      <h1>Dragon Lance</h1>
+    <div className='contenedor-intro'>
+      <h1>DragonLance</h1>
       <p>Era una noche como otra cualquiera en la taberna "<i>El oso y la doncella</i>". Los mismos parroquianos, el mismo aire con olor a asado de ciervo con castañas, el calor del fuego, el sonido de la lluvia fuera, repiqueteando contra las ventanas...
       </p>
       <p>Una noche como otra cualquiera, si obviáramos el pequeño grupo de aventureros que hablaban sentados a una mesa junto al fuego.
