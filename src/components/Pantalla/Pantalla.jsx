@@ -20,10 +20,11 @@ import Mensajes from "../Mensajes/Mensajes";
 import Boton from "../Boton/Boton";
 import Inventario from "../Inventario/Inventario";
 import Intro from "../Intro/Intro";
+import Creditos from "../Creditos/Creditos";
 
 // Declara el componente principal de la pantalla del juego.
 function Pantalla() {
-  
+
   // Define los diferentes estados del juego como un objeto constante.
   const ESTADO = {
     INICIO: 'game_start', // Juego no iniciado.
@@ -150,6 +151,7 @@ function Pantalla() {
         // Verifica si el enemigo sigue vivo.
         const estaEnemigoVivo = logicaJuego.verificarVida(equipoEnemigos[indiceEnemigo]);
 
+
         // Esperar 1 segundo antes de que el enemigo ataque
         setTimeout(() => {
 
@@ -192,12 +194,12 @@ function Pantalla() {
             console.log(`${nuevosEnemigos[indiceEnemigo].nombre} ha soltado esta recompensa: ${recompensa}`);
             console.log(`El héroe ${equipoHeroes[indiceHeroe].nombre} ha asesinado a ${equipoHeroes[indiceHeroe].asesinados}`);
             console.log(`El héroe ${equipoHeroes[indiceHeroe].nombre} lleva ${equipoHeroes[indiceHeroe].muertes} muertes`);
-
+            const msgMuerte = `El ${equipoEnemigos[indiceEnemigo].nombre} lanza un grito agudo cuando ${equipoHeroes[indiceHeroe].nombre} lo derriba con un solo golpe. dejando caer ${recompensa} mientras su sangre se esparce por el suelo lentamente.`;
             nuevosEnemigos = logicaJuego.eliminarEnemigo(equipoEnemigos, indiceEnemigo);
+            setMensaje(msgMuerte);
             setEquipoEnemigos(nuevosEnemigos);
 
-            pausarjuego();
-          }
+            pausarjuego();}
         }, 600);
       }, 1800);
     }, 600);

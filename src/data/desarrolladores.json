@@ -10,6 +10,13 @@
         "nombre": "Yulian",
         "apellidos": "Borges Lobaina",
         "rol": "Desarrollador"
+    },
+    {
+        "id": 1,
+        "nombre": "React",
+        "apellidos": "Borges Lobaina",
+        "rol": "Desarrollador"
     }
+
 
 ]
