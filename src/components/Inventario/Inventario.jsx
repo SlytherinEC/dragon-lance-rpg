@@ -15,7 +15,7 @@ function Inventario({ equipoHeroes }) {
 
   return (
     <div className='inventario'>
-            <div className="contenedor-boton btn-inventario">
+      <div className="contenedor-boton btn-inventario">
         <Boton onClick={mostrarEstadisticasClick} texto={mostrarEstadisticas ? "Recompensas" : "Estadísticas"} />
       </div>
 
@@ -25,7 +25,7 @@ function Inventario({ equipoHeroes }) {
           {mostrarEstadisticas ? (
             <Estadisticas heroe={personaje} />
           ) : (
-          <Recompensas heroe={personaje}  />
+            <Recompensas heroe={personaje} />
           )}
         </div>
       ))}
