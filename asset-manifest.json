@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/dragon-lance-rpg/static/css/main.925d44e8.css",
+    "main.js": "/dragon-lance-rpg/static/js/main.e311da16.js",
+    "static/js/453.e229f8bf.chunk.js": "/dragon-lance-rpg/static/js/453.e229f8bf.chunk.js",
+    "static/media/cripta.png": "/dragon-lance-rpg/static/media/cripta.6560d7ea58f50e5aee72.png",
+    "static/media/flint.png": "/dragon-lance-rpg/static/media/flint.d47fd4c1b2714a5ceca0.png",
+    "static/media/Gemini_Generated_Image_Centauro.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Centauro.7b9358fbe5a8ef770c72.png",
+    "static/media/Gemini_Generated_Image_Troll.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Troll.abb38a30a54272447efd.png",
+    "static/media/Gemini_Generated_Image_Gigante.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Gigante.1e27b28bbe56d59e2bcb.png",
+    "static/media/Gemini_Generated_Image_Nigromante.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Nigromante.fd15dea66c5e562e91cb.png",
+    "static/media/Gemini_Generated_Image_Orco.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Orco.7489508b09aea9919496.png",
+    "static/media/tanis.png": "/dragon-lance-rpg/static/media/tanis.d9a0a357941842d85889.png",
+    "static/media/Gemini_Generated_Image_Goblin.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Goblin.7a3521d53af6aa8dbd49.png",
+    "static/media/Gemini_Generated_Image_Harpia.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Harpia.51e32439a61532a289cc.png",
+    "static/media/Gemini_Generated_Image_Dragon.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Dragon.2de6bd5192679afa3372.png",
+    "static/media/Gemini_Generated_Image_Espectro.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Espectro.d5501d51cb72759ee774.png",
+    "static/media/Gemini_Generated_Image_Basilisco.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Basilisco.23a6c4964b1a43c22d4c.png",
+    "static/media/tas.png": "/dragon-lance-rpg/static/media/tas.4421592fd3a8e499b76f.png",
+    "static/media/Gemini_Generated_Image_Minotauro.png": "/dragon-lance-rpg/static/media/Gemini_Generated_Image_Minotauro.e22d42464a035aee524b.png",
+    "static/media/fran.png": "/dragon-lance-rpg/static/media/fran.2197bc2c9c585fb29601.png",
+    "static/media/yulian.png": "/dragon-lance-rpg/static/media/yulian.dda508c10e69424be9eb.png",
+    "static/media/dragonlance-logo.png": "/dragon-lance-rpg/static/media/dragonlance-logo.4b65d91867d109761b3e.png",
+    "static/media/react.png": "/dragon-lance-rpg/static/media/react.af6c6b1fdd31957abce5.png",
+    "static/media/KuenstlerGotisch.ttf": "/dragon-lance-rpg/static/media/KuenstlerGotisch.2df7d39feab5b6884429.ttf",
+    "index.html": "/dragon-lance-rpg/index.html",
+    "main.925d44e8.css.map": "/dragon-lance-rpg/static/css/main.925d44e8.css.map",
+    "main.e311da16.js.map": "/dragon-lance-rpg/static/js/main.e311da16.js.map",
+    "453.e229f8bf.chunk.js.map": "/dragon-lance-rpg/static/js/453.e229f8bf.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.925d44e8.css",
+    "static/js/main.e311da16.js"
+  ]
+}
